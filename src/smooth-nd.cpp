@@ -2,20 +2,24 @@
 #include <Rcpp.h>
 #include "group.hpp"
 #include "Summary2d.hpp"
+<<<<<<< HEAD
 #include <memory>
+=======
+#include <boost/shared_ptr.hpp>
+>>>>>>> hadley/master
 using namespace Rcpp;
 
-std::auto_ptr<Summary2d> createSummary(std::string type) {
+boost::shared_ptr<Summary2d> createSummary(std::string type) {
   if (type == "mean") {
-    return std::auto_ptr<Summary2d>(new Summary2dMean());
+    return boost::shared_ptr<Summary2d>(new Summary2dMean());
   } else if (type == "regression") {
-    return std::auto_ptr<Summary2d>(new Summary2dRegression());
+    return boost::shared_ptr<Summary2d>(new Summary2dRegression());
   } else if (type == "robust_regression") {
-    return std::auto_ptr<Summary2d>(new Summary2dRobustRegression());
+    return boost::shared_ptr<Summary2d>(new Summary2dRobustRegression());
   } else {
     stop("Unknown type");
     // Quiet warning
-    return std::auto_ptr<Summary2d>(new Summary2dMean());
+    return boost::shared_ptr<Summary2d>(new Summary2dMean());
   }
 }
 
@@ -59,7 +63,11 @@ NumericVector smooth_nd_1(const NumericMatrix& grid_in,
   // efficient running sum
 
   for(int j = 0; j < n_out; ++j) {
+<<<<<<< HEAD
       std::auto_ptr<Summary2d> summary = std::auto_ptr<Summary2d>(createSummary(type));
+=======
+    boost::shared_ptr<Summary2d> summary = createSummary(type);
+>>>>>>> hadley/master
     for (int i = 0; i < n_in; ++i) {
       // Check that all variables (apart from var) are equal
       bool equiv = true;
